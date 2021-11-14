@@ -23,17 +23,19 @@ def transform(soup):
             'span', class_='TitleBlock__StyledSpan-sc-1avkvav-4 gDBFnc').text.strip()
         address = item.find(
             'p', class_='TitleBlock__Address-sc-1avkvav-7 knPImU').text.strip()
-        detail = item.find(
-            'div', class_='TitleBlock__CardInfo-sc-1avkvav-9 gfOhoi').text.strip()
-        detail = detail.replace('Bed', 'Bed ')
-        detail = detail.replace('Bath', 'Bath ')
-        detail = detail.replace('m2', 'm2 ')
-        agent = item.find(
-            'span', class_='TitleBlock__AgentNameTextWrapper-sc-1avkvav-1 kpBlSE').text.strip()
+        detail = soup.find("div", {"class":"TitleBlock__CardInfo-sc-1avkvav-9 QvaxK"}).findAll('p')
+        info =""
+        for res in detail:
+            info += '\n' + ''.join(res.findAll(text = True))
+        try:
+            agent = item.find(
+                'span', class_='TitleBlock__AgentNameTextWrapper-sc-1avkvav-1 kpBlSE').text.strip()
+        except:
+            agent = ""
         home = {
             'Agent': agent,
             'Address': address,
-            'Details': detail,
+            'Details': info,
             'Price': price
         }
         homelist.append(home)
