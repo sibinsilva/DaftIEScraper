@@ -17,23 +17,17 @@ def extract(page):
 
 def transform(soup):
     divs = soup.find_all(
-        'div', class_='Card__TitleBlockWrapper-x1sjdn-4 ekdskd')
+        'div', class_='Cardstyled__TitleBlockWrapper-nngi4q-4 eMeJos')
     for item in divs:
         price = item.find(
-            'span', class_='TitleBlock__StyledSpan-sc-1avkvav-4 gDBFnc').text.strip()
+            'span', class_='TitleBlock__StyledSpan-sc-1avkvav-5 fKAzIL').text.strip()
         address = item.find(
-            'p', class_='TitleBlock__Address-sc-1avkvav-7 knPImU').text.strip()
-        detail = soup.find("div", {"class":"TitleBlock__CardInfo-sc-1avkvav-9 QvaxK"}).findAll('p')
+            'p', class_='TitleBlock__Address-sc-1avkvav-8 dzihyY').text.strip()
+        detail = soup.find("div", {"class":"TitleBlock__CardInfo-sc-1avkvav-10 iCjViR"}).findAll('p')
         info =""
         for res in detail:
             info += '\n' + ''.join(res.findAll(text = True))
-        try:
-            agent = item.find(
-                'span', class_='TitleBlock__AgentNameTextWrapper-sc-1avkvav-1 kpBlSE').text.strip()
-        except:
-            agent = ""
         home = {
-            'Agent': agent,
             'Address': address,
             'Details': info,
             'Price': price
